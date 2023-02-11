@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "@/context/UserProvider";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -8,9 +8,11 @@ import { formValidate } from "@/utils/formValidate";
 import FormInput from "@/components/FormInput";
 import Title from "@/components/Title";
 import Button from "@/components/Button";
+import ButtonLoading from "@/components/ButtonLoading";
 
 const Login = () => {
   const { loginUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const navegate = useNavigate();
   const { required, patternEmail, minLength, validateTrim } = formValidate();
   const {
@@ -27,6 +29,7 @@ const Login = () => {
 
   const onSubmit = async ({ email, password }) => {
     try {
+      setLoading(true);
       await loginUser(email, password);
       console.log("Usuario Creado");
       navegate("/");
@@ -35,6 +38,8 @@ const Login = () => {
       setError(code, {
         message,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,8 +71,7 @@ const Login = () => {
         >
           <FormError error={errors.password} />
         </FormInput>
-
-        <Button type="submit" text="login" />
+        {loading ? <ButtonLoading /> : <Button type="submit" text="login" />}
       </form>
     </>
   );
