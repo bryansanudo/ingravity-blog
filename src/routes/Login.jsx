@@ -8,13 +8,13 @@ import { formValidate } from "@/utils/formValidate";
 import FormInput from "@/components/FormInput";
 import Title from "@/components/Title";
 import Button from "@/components/Button";
-import ButtonLoading from "@/components/ButtonLoading";
 
 const Login = () => {
   const { loginUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const navegate = useNavigate();
   const { required, patternEmail, minLength, validateTrim } = formValidate();
+
   const {
     register,
     handleSubmit,
@@ -71,7 +71,8 @@ const Login = () => {
         >
           <FormError error={errors.password} />
         </FormInput>
-        {loading ? <ButtonLoading /> : <Button type="submit" text="login" />}
+
+        <Button type="submit" text="login" color="blue" loading={loading} />
       </form>
     </>
   );
