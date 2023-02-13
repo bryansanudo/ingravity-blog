@@ -8,7 +8,8 @@ import { formValidate } from "@/utils/formValidate";
 import FormInput from "@/components/FormInput";
 import Title from "@/components/Title";
 import Button from "@/components/Button";
-import ButtonLoading from "@/components/ButtonLoading";
+
+import { useFirestoreName } from "@/hooks/useFirestoreName";
 
 const Register = () => {
   const navegate = useNavigate();
@@ -16,6 +17,8 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const { required, patternEmail, minLength, validateTrim, validateEquals } =
     formValidate();
+
+  const { addData } = useFirestoreName();
 
   const {
     register,
@@ -29,11 +32,14 @@ const Register = () => {
     },
   });
 
-  const onSubmit = async ({ email, password }) => {
+  const onSubmit = async ({ email, password, userName }) => {
     try {
       setLoading(true);
       await registerUser(email, password);
+
       console.log("Usuario Creado");
+      await addData(userName);
+
       navegate("/");
     } catch (error) {
       console.log(error.code);
@@ -51,6 +57,18 @@ const Register = () => {
       <Title text="Register" />
 
       <form onSubmit={handleSubmit(onSubmit)}>
+        <FormInput
+          label="Ingresa tu nombre"
+          type="text"
+          placeholder="Ingrese nombre"
+          {...register("userName", {
+            required,
+            pattern: patternEmail,
+          })}
+          error={errors.email}
+        >
+          <FormError error={errors.email} />
+        </FormInput>
         <FormInput
           type="email"
           placeholder="Ingrese email"

@@ -18,7 +18,7 @@ export const useFirestore = () => {
   const [loading, setLoading] = useState({});
 
   const getData = async () => {
-    console.log(auth.currentUser);
+    //console.log(auth.currentUser);
     try {
       setLoading((prev) => ({ ...prev, getData: true }));
       const querySnapshot = await getDocs(collection(db, "urls"));
@@ -32,11 +32,31 @@ export const useFirestore = () => {
     }
   };
 
+  const getNames = async () => {
+    try {
+      setLoading(true);
+      const dataRef = collection(db, "names");
+      const q = query(dataRef, where("uid", "==", auth.currentUser.uid));
+      const querySnapshot = await getDocs(q);
+      const dataDB = querySnapshot.docs.map((doc) => doc.data());
+
+      return dataDB[0].name;
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const addData = async (url) => {
     try {
       setLoading((prev) => ({ ...prev, addData: true }));
+      const bbb = await getNames();
+
       const newDoc = {
         enabled: true,
+        name: bbb,
         nanoid: nanoid(6),
         origin: url,
         uid: auth.currentUser.uid,
@@ -46,7 +66,6 @@ export const useFirestore = () => {
       await setDoc(docRef, newDoc);
       setData([...data, newDoc]);
     } catch (error) {
-      console.log(error);
       setError(error.message);
     } finally {
       setLoading((prev) => ({ ...prev, addData: false }));

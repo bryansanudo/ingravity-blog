@@ -104,9 +104,12 @@ const Home = () => {
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
             {item.origin}
           </p>
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            {item.name}
+          </p>
 
           <div className=" flex gap-2">
-            {auth.currentUser.uid === item.uid ? (
+            {auth.currentUser.uid === item.uid && (
               <>
                 <Button
                   type="button"
@@ -122,8 +125,6 @@ const Home = () => {
                   onClick={() => handleClickEdit(item)}
                 />
               </>
-            ) : (
-              <p>hola</p>
             )}
           </div>
         </div>

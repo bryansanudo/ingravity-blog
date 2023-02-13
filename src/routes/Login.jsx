@@ -3,8 +3,9 @@ import { UserContext } from "@/context/UserProvider";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { erroresFirebase } from "@/utils/erroresFirebase";
-import FormError from "@/components/FormError";
 import { formValidate } from "@/utils/formValidate";
+
+import FormError from "@/components/FormError";
 import FormInput from "@/components/FormInput";
 import Title from "@/components/Title";
 import Button from "@/components/Button";
@@ -31,6 +32,7 @@ const Login = () => {
     try {
       setLoading(true);
       await loginUser(email, password);
+
       console.log("Usuario Creado");
       navegate("/");
     } catch (error) {
