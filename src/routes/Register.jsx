@@ -54,13 +54,13 @@ const Register = () => {
 
   return (
     <>
-      <Title text="Register" />
+      <Title text="Conviertete en miembro de Ingravity Roller" />
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
-          label="Ingresa tu nombre"
+          label="Nombre"
           type="text"
-          placeholder="Ingrese nombre"
+          placeholder="Ingresa tu nombre"
           {...register("userName", {
             required,
             pattern: patternEmail,
@@ -71,12 +71,12 @@ const Register = () => {
         </FormInput>
         <FormInput
           type="email"
-          placeholder="Ingrese email"
+          placeholder="Ingrese tu correo"
           {...register("email", {
             required,
             pattern: patternEmail,
           })}
-          label="Ingresa tu correo"
+          label="Correo"
           error={errors.email}
         >
           <FormError error={errors.email} />
@@ -84,12 +84,12 @@ const Register = () => {
 
         <FormInput
           type="password"
-          placeholder="Ingrese password"
+          placeholder="Ingresa tu contraseña"
           {...register("password", {
             minLength,
             validate: validateTrim,
           })}
-          label="Ingresa tu password"
+          label="Contraseña"
           error={errors.password}
         >
           <FormError error={errors.password} />
@@ -97,16 +97,18 @@ const Register = () => {
 
         <FormInput
           type="password"
-          placeholder="Confirme password"
+          placeholder="Confirma contraseña"
           {...register("repassword", {
             validate: validateEquals(getValues("password")),
           })}
-          label="Repite contraseña"
+          label="Confirma contraseña"
           error={errors.repassword}
         >
           <FormError error={errors.repassword} />
         </FormInput>
-        <Button type="submit" text="register" loading={loading} />
+        <div className="flex items-center justify-center">
+          <Button type="submit" text="Crear Usuario" loading={loading} />
+        </div>
       </form>
     </>
   );

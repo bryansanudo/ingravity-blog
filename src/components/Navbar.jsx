@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { UserContext } from "@/context/UserProvider";
+import ingravityLogo from "@/assets/ingravityLogo.png";
+import rollerLogo from "@/assets/rollerLogo.png";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(UserContext);
@@ -13,37 +15,42 @@ const Navbar = () => {
     }
   };
 
-  const classButtonBlue =
-    "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800";
-
-  const classButtonRed =
-    "text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3  dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800";
+  const classButton =
+    "bg-gradient-to-r from-thOrange to-thBlue py-2 px-6 text-black rounded-lg duration-300 hover:scale-110";
 
   return (
-    <nav className="bg-white border-gray-200 px-2 sm:px4 py-2.5 rounded dark:bg-gray-800">
-      <div className="container flex flex-wrap justify-between items-center mx-auto">
-        <Link to="/" className="flex items-center">
-          <span className="self-center text-xl font-semibol whitespace-nowrap dark:text-white">
-            URLShort app
-          </span>
-        </Link>
-        <div className="flex md:order-2">
+    <nav className="w-full h-24 bg-black text-white">
+      <div className="container flex  justify-center items-center mx-auto gap-4 p-5">
+        <a href="">
+          <img
+            src={ingravityLogo}
+            className="rounded-full object-cover w-16 h-16  shadow-thOrange hover:scale-110 duration-300 shadow-lg"
+          />
+        </a>
+        <a href="">
+          <img
+            src={rollerLogo}
+            className="rounded-full object-cover w-16 h-16 hover:scale-110 duration-300 shadow-lg shadow-thBlue"
+          />
+        </a>
+
+        <div className="flex gap-2">
           {user ? (
             <>
-              <NavLink to="/" className={classButtonBlue}>
+              <NavLink to="/" className={classButton}>
                 Inicio
               </NavLink>
-              <button onClick={handleClickLogout} className={classButtonRed}>
+              <button onClick={handleClickLogout} className={classButton}>
                 Logout
               </button>
             </>
           ) : (
             <>
-              <NavLink to="/login" className={classButtonBlue}>
-                Login
+              <NavLink to="/login" className={classButton}>
+                Entrar
               </NavLink>
-              <NavLink to="/register" className={classButtonBlue}>
-                Register
+              <NavLink to="/register" className={classButton}>
+                Registrate
               </NavLink>
             </>
           )}

@@ -47,12 +47,12 @@ const Login = () => {
 
   return (
     <>
-      <Title text="ingravity roller Login" />
+      <Title text="Inicio de Sesion" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
-          label="Ingresa tu correo"
+          label="Usuario"
           type="email"
-          placeholder="Ingrese email"
+          placeholder="Ingresa tu correo"
           {...register("email", {
             required,
             pattern: patternEmail,
@@ -62,9 +62,9 @@ const Login = () => {
           <FormError error={errors.email} />
         </FormInput>
         <FormInput
-          label="Ingrese su password"
+          label="Contraseña"
           type="password"
-          placeholder="Ingrese password"
+          placeholder="Ingresa tu Contraseña"
           {...register("password", {
             minLength,
             validate: validateTrim,
@@ -74,7 +74,9 @@ const Login = () => {
           <FormError error={errors.password} />
         </FormInput>
 
-        <Button type="submit" text="login" color="blue" loading={loading} />
+        <div className="flex items-center justify-center">
+          <Button type="submit" text="Iniciar" loading={loading} />
+        </div>
       </form>
     </>
   );

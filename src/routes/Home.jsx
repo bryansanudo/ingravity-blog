@@ -31,7 +31,7 @@ const Home = () => {
     getData();
   }, []);
 
-  if (loading.getData) return <p>Loading data getData...</p>;
+  if (loading.getData) return <p>Bievenido a Ingravity Roller...</p>;
   if (error) return <p>{error}</p>;
 
   const onSubmit = async ({ url }) => {
@@ -60,75 +60,68 @@ const Home = () => {
 
   return (
     <>
-      <Title text="Home" />
+      {/* <Title text="Home" /> */}
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormInput
+            label="Publicacion"
+            type="text"
+            placeholder="Escribe tu mensaje"
+            {...register("url", {
+              required,
+              pattern: patternEmail,
+            })}
+            error={errors.url}
+          >
+            <FormError error={errors.email} />
+          </FormInput>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          label="Ingresa url"
-          type="text"
-          placeholder="Ingrese url"
-          {...register("url", {
-            required,
-            pattern: patternEmail,
-          })}
-          error={errors.url}
-        >
-          <FormError error={errors.email} />
-        </FormInput>
+          {newOriginId ? (
+            <Button
+              type="submit"
+              text="Editar publicacion"
+              loading={loading.updateData}
+            />
+          ) : (
+            <Button type="submit" text="Publicar" loading={loading.addData} />
+          )}
+        </form>
 
-        {newOriginId ? (
-          <Button
-            type="submit"
-            text="edit url"
-            color="red"
-            loading={loading.updateData}
-          />
-        ) : (
-          <Button
-            type="submit"
-            text="add url"
-            color="red"
-            loading={loading.addData}
-          />
-        )}
-      </form>
+        {data.map((item) => (
+          <div
+            key={item.nanoid}
+            className="p-6  bg-white rounded-lg border border-gray-200  dark:bg-gray-800 dark:border-gray-700"
+          >
+            <p className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {item.nanoid}
+            </p>
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {item.origin}
+            </p>
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {item.name}
+            </p>
 
-      {data.map((item) => (
-        <div
-          key={item.nanoid}
-          className="p-6  bg-white rounded-lg border border-gray-200  dark:bg-gray-800 dark:border-gray-700"
-        >
-          <p className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {item.nanoid}
-          </p>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            {item.origin}
-          </p>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            {item.name}
-          </p>
-
-          <div className=" flex gap-2">
-            {auth.currentUser.uid === item.uid && (
-              <>
-                <Button
-                  type="button"
-                  text="delete"
-                  color="red"
-                  loading={loading[item.nanoid]}
-                  onClick={() => handleClickDelete(item.nanoid)}
-                />
-                <Button
-                  type="button"
-                  text="Edit"
-                  color="red"
-                  onClick={() => handleClickEdit(item)}
-                />
-              </>
-            )}
+            <div className=" flex gap-2">
+              {auth.currentUser.uid === item.uid && (
+                <>
+                  <Button
+                    type="button"
+                    text="delete"
+                    loading={loading[item.nanoid]}
+                    onClick={() => handleClickDelete(item.nanoid)}
+                  />
+                  <Button
+                    type="button"
+                    text="Edit"
+                    onClick={() => handleClickEdit(item)}
+                  />
+                </>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </>
   );
 };
