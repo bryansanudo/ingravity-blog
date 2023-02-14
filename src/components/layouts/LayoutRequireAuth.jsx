@@ -9,7 +9,7 @@ const LayoutRequireAuth = ({ children }) => {
     return <Navigate to="/login" />;
   }
   return (
-    <div className="container mx-auto">
+    <div className="mx-auto px-6 mt-10">
       <Outlet />
     </div>
   );

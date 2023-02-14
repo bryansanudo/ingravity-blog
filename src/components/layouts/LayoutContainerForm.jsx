@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const LayoutContainerForm = () => {
   return (
-    <div className="w-96 mx-auto mt-10">
+    <div className="mx-auto px-6 mt-10 max-w-screen-sm ">
       <Outlet />
     </div>
   );

@@ -16,32 +16,29 @@ const Navbar = () => {
   };
 
   const classButton =
-    "bg-gradient-to-r from-thOrange to-thBlue py-2 px-6 text-black rounded-lg duration-300 hover:scale-110";
+    "bg-gradient-to-r from-thOrange to-thBlue py-2  px-1 text-sm md:px-4 text-black rounded-lg duration-300 hover:scale-110";
 
   return (
-    <nav className="w-full h-24 bg-black text-white">
-      <div className="container flex  justify-center items-center mx-auto gap-4 p-5">
-        <a href="">
+    <nav className=" w-full h-24 bg-black text-white">
+      <div className="container flex  justify-center items-center mx-auto gap-2 md:gap-4 p-5">
+        <a href="https://ingravity.netlify.app/">
           <img
             src={ingravityLogo}
-            className="rounded-full object-cover w-16 h-16  shadow-thOrange hover:scale-110 duration-300 shadow-lg"
+            className="rounded-full object-cover  w-12 h-12 md:w-16 md:h-16  shadow-thOrange hover:scale-110 duration-300 shadow-lg"
           />
         </a>
-        <a href="">
+        <a href="https://ingravity.netlify.app/productos/patines">
           <img
             src={rollerLogo}
-            className="rounded-full object-cover w-16 h-16 hover:scale-110 duration-300 shadow-lg shadow-thBlue"
+            className="rounded-full object-cover w-12 h-12 md:w-16 md:h-16 hover:scale-110 duration-300 shadow-lg shadow-thBlue"
           />
         </a>
 
         <div className="flex gap-2">
           {user ? (
             <>
-              <NavLink to="/" className={classButton}>
-                Inicio
-              </NavLink>
               <button onClick={handleClickLogout} className={classButton}>
-                Logout
+                Salir
               </button>
             </>
           ) : (

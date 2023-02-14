@@ -22,11 +22,7 @@ const Login = () => {
     formState: { errors },
 
     setError,
-  } = useForm({
-    defaultValues: {
-      email: "bryan1@test.com",
-    },
-  });
+  } = useForm({});
 
   const onSubmit = async ({ email, password }) => {
     try {
@@ -74,7 +70,7 @@ const Login = () => {
           <FormError error={errors.password} />
         </FormInput>
 
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center ">
           <Button type="submit" text="Iniciar" loading={loading} />
         </div>
       </form>
